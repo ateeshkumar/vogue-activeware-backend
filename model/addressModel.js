@@ -2,6 +2,10 @@ const { default: mongoose } = require("mongoose");
 
 const schema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: "user",
+    },
     pincode: {
       type: String,
       required: true,

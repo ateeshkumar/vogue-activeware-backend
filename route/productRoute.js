@@ -3,6 +3,9 @@ const {
   createProductController,
   getAllProduct,
   getSingleProduct,
+  getProductCategoryList,
+  deleteProductController,
+  updateProductController,
 } = require("../controller/productController");
 const { productRoute } = require("../middleware/ImageMiddleWare");
 
@@ -17,5 +20,11 @@ router.post(
 router.get("/list", getAllProduct);
 
 router.get("/product", getSingleProduct);
+
+router.get("/product/category", getProductCategoryList);
+
+router.delete("/delete-product", deleteProductController);
+
+router.put("/update-product", updateProductController);
 
 module.exports = router;

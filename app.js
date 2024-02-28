@@ -5,6 +5,8 @@ const userRouter = require("./route/userRoute");
 const morgan = require("morgan");
 const cors = require("cors");
 const productRoute = require("./route/productRoute");
+const cartRoute = require("./route/cartRoute");
+const wishlistRoute = require("./route/wishlistRoute");
 
 dotenv.config();
 DB();
@@ -19,6 +21,8 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRouter);
 app.use("/product", productRoute);
+app.use("/cart", cartRoute);
+app.use("/wishlist", wishlistRoute);
 
 app.listen(process.env.PORT, () => {
   console.log("server running on port 8080");
