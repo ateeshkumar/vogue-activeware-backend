@@ -24,3 +24,21 @@ exports.createPincodeController = async (req, res) => {
     });
   }
 };
+
+exports.getPincodeController = async (req, res) => {
+  try {
+    const id = req.query.pincode;
+    const data = await PincodeModel.find({ PINCODE: id });
+    res.status(200).send({
+      response: true,
+      message: "Date Get Successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};

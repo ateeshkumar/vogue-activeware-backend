@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema(
   {
+    isAdmin: { type: Boolean, default: false },
     name: {
       type: String,
       default: "",

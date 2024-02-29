@@ -259,3 +259,18 @@ exports.sendEmailOtpController = async (req, res) => {
     });
   }
 };
+
+exports.testController = async (req, res) => {
+  try {
+    res.status(200).send({
+      success: true,
+      massage: "Test Controller",
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};

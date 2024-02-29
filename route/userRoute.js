@@ -9,7 +9,9 @@ const {
   removeUserAddress,
   getUserAddressController,
   sendEmailOtpController,
+  testController,
 } = require("../controller/UserConroller");
+const { requestSignIn, adminAccess } = require("../middleware/authMeddleWare");
 const router = express.Router();
 
 router.post("/signup", userRegisterController);
@@ -19,6 +21,16 @@ router.post("/forgot-password", sendEmailOtpController);
 router.post("/varify-otp");
 
 router.put("/reset-password");
+
+router.get("/test", requestSignIn, adminAccess, testController);
+
+router.get("/user-auth", requestSignIn, (req, res) => {
+  res.status(200).send({ ok: true });
+});
+
+router.get("/admin-auth", requestSignIn, adminAccess, (req, res) => {
+  res.status(200).send({ ok: true });
+});
 
 router.post("/login", loginControler);
 
