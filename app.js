@@ -7,6 +7,8 @@ const cors = require("cors");
 const productRoute = require("./route/productRoute");
 const cartRoute = require("./route/cartRoute");
 const wishlistRoute = require("./route/wishlistRoute");
+const orderRoute = require("./route/orderRoute");
+const pincodeRoute = require("./route/pincodeRoute");
 
 dotenv.config();
 DB();
@@ -23,6 +25,8 @@ app.use("/user", userRouter);
 app.use("/product", productRoute);
 app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);
+app.use("/order", orderRoute);
+app.use("/pincode", pincodeRoute);
 
 app.listen(process.env.PORT, () => {
   console.log("server running on port 8080");

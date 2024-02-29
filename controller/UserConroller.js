@@ -5,6 +5,9 @@ const JWT = require("jsonwebtoken");
 const WishlistModel = require("../model/wishListModel");
 const AddressModel = require("../model/addressModel");
 const { default: mongoose } = require("mongoose");
+const nodemailer = require("nodemailer");
+const otpGenerator = require("otp-generator");
+
 exports.userRegisterController = async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
@@ -203,6 +206,50 @@ exports.getUserAddressController = async (req, res) => {
       response: true,
       message: "Data Retrive Successfully",
       data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};
+
+//send email for otp
+exports.sendEmailOtpController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const otp = otpGenerator.generate(6, {
+      digits: true,
+      alphabets: false,
+      upperCase: false,
+      specialChars: false,
+    });
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "ateesh2002@gmail.com",
+        pass: "ahyj plav xzfg sxaq",
+      },
+    });
+    const mailOptions = {
+      from: "ateesh2002@gmail.com",
+      to: email,
+      subject: "OTP for Verification",
+      text: `Your OTP is: ${otp}`,
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+    res.status(200).send({
+      response: true,
+      message: "Email Sent Successfully",
+      mailOptions,
     });
   } catch (error) {
     res.status(500).send({
