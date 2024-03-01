@@ -17,7 +17,7 @@ exports.userRegisterController = async (req, res) => {
         message: "All fields Required",
       });
     }
-    const isExist = await UserModel.findOne(email);
+    const isExist = await UserModel.findOne({email});
     if (isExist.email == email) {
       res.status(200).send({
         response: false,
