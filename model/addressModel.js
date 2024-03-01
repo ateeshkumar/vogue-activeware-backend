@@ -7,7 +7,7 @@ const schema = mongoose.Schema(
       ref: "user",
     },
     pincode: {
-      type: String,
+      type: Number,
       required: true,
     },
     houseNo: {

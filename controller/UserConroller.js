@@ -10,15 +10,28 @@ const otpGenerator = require("otp-generator");
 
 exports.userRegisterController = async (req, res) => {
   try {
-    const { name, email, phone, password } = req.body;
-    if (!email || !password) {
+    const { name, email, phone, password, uid } = req.body;
+    if (!email) {
       res.status(400).send({
         response: false,
         message: "All fields Required",
       });
     }
+    const isExist = await UserModel.findOne(email);
+    if (isExist.email == email) {
+      res.status(200).send({
+        response: false,
+        message: "User Already Exist",
+      });
+    }
     const hashpassword = await hashPassword(password);
-    const data = new UserModel({ name, email, phone, password: hashpassword });
+    const data = new UserModel({
+      name,
+      email,
+      phone,
+      password: hashpassword,
+      uid,
+    });
     const token = await JWT.sign({ _id: data._id }, process.env.SECRET_KEY, {
       expiresIn: "3000h",
     });

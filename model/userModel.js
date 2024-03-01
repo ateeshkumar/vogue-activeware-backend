@@ -29,6 +29,7 @@ const schema = mongoose.Schema(
     orderHistory: [{ type: mongoose.Types.ObjectId, ref: "order" }],
     cart: [{ type: mongoose.Types.ObjectId, ref: "product" }],
     wishlist: [{ type: mongoose.Types.ObjectId, ref: "product" }],
+    uid: { type: String, default: "Not Signinwith google" },
   },
   { timestamps: true }
 );
