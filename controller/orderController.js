@@ -4,10 +4,11 @@ const UserModel = require("../model/userModel");
 
 exports.createOrderController = async (req, res) => {
   try {
-    const { user, paymentMode, paymentStatus, address, transactionId } =
+    const { user, price, paymentMode, paymentStatus, address, transactionId } =
       req.body;
     const data = new OrderModel({
       user,
+      price,
       paymentMode,
       paymentStatus,
       address,
