@@ -6,6 +6,7 @@ const {
   getProductCategoryList,
   deleteProductController,
   updateProductController,
+  searchProductController,
 } = require("../controller/productController");
 const { productRoute } = require("../middleware/ImageMiddleWare");
 
@@ -27,4 +28,5 @@ router.delete("/delete-product", deleteProductController);
 
 router.put("/update-product", updateProductController);
 
+router.get("/search-product", searchProductController);
 module.exports = router;

@@ -147,3 +147,26 @@ exports.updateProductController = async (req, res) => {
     });
   }
 };
+
+exports.searchProductController = async (req, res) => {
+  try {
+    const keyword = req.query.search;
+    const data = await ProductModel.find({
+      $or: [
+        { name: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } },
+      ],
+    });
+    res.status(200).send({
+      response: true,
+      message: "Data Retrive",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};
