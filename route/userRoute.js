@@ -10,6 +10,7 @@ const {
   getUserAddressController,
   sendEmailOtpController,
   testController,
+  getAddressDetails,
 } = require("../controller/UserConroller");
 const { requestSignIn, adminAccess } = require("../middleware/authMeddleWare");
 const router = express.Router();
@@ -46,5 +47,7 @@ router.put("/update-address", updateAddressController);
 router.post("/remove-address", removeUserAddress);
 
 router.get("/get-address", getUserAddressController);
+
+router.get("/get-address-detail", getAddressDetails);
 
 module.exports = router;

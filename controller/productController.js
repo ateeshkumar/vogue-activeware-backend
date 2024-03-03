@@ -12,7 +12,9 @@ exports.createProductController = async (req, res) => {
       description,
       productDetails,
     } = req.body;
+
     const productImg = req.files ? req.files.map((file) => file.filename) : "";
+
     const data = ProductModel({
       categories,
       name,

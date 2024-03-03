@@ -27,7 +27,7 @@ const schema = mongoose.Schema(
     address: [{ type: mongoose.Types.ObjectId, ref: "address" }],
     newOrder: [{ type: mongoose.Types.ObjectId, ref: "order" }],
     orderHistory: [{ type: mongoose.Types.ObjectId, ref: "order" }],
-    cart: [{ type: mongoose.Types.ObjectId, ref: "product" }],
+    cart: [{ type: mongoose.Types.ObjectId, ref: "cartItem" }],
     wishlist: [{ type: mongoose.Types.ObjectId, ref: "product" }],
     uid: { type: String, default: "Not Signinwith google" },
   },

@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const schema = mongoose.Schema(
   {
-    product: [{ type: mongoose.Types.ObjectId, ref: "product" }],
+    cartItem: [{ type: mongoose.Types.ObjectId, ref: "cartItem" }],
     user: { type: mongoose.Types.ObjectId, ref: "user" },
     paymentMode: { type: String, default: "cash on Delievery" },
     paymentStatus: { type: String, default: "pending" },
@@ -11,6 +11,7 @@ const schema = mongoose.Schema(
     deleveryTime: { type: String, default: "NA" },
     orderStatus: { type: String, default: "procecing" },
     itemDelieverd: { type: String, default: "pending" },
+    transactionId: { type: String, default: "" },
   },
   { timestamps: true }
 );

@@ -2,16 +2,18 @@ const { default: mongoose } = require("mongoose");
 const CartModel = require("../model/cartModel");
 const ProductModel = require("../model/productModel");
 const UserModel = require("../model/userModel");
+const CartItemModel = require("../model/cartItemModel");
 
 exports.addToCart = async (req, res) => {
   try {
     const id = req.query.uId;
     const { productId } = req.body;
     const data = await UserModel.findById(id);
-    const product = await ProductModel.findById(productId);
+    const cartItem = new CartItemModel({ product: productId, user: id });
     const session = await mongoose.startSession();
     session.startTransaction();
-    data.cart.push(product);
+    await cartItem.save({ session });
+    data.cart.push(cartItem);
     await data.save({ session });
     await session.commitTransaction();
     res.status(200).send({
@@ -32,14 +34,15 @@ exports.addToCart = async (req, res) => {
 exports.removeToCart = async (req, res) => {
   try {
     const id = req.query.uId;
-    const { productId } = req.body;
+    const { cartItem } = req.body;
     const data = await UserModel.findById(id);
-    const product = await ProductModel.findById(productId);
+    const cartitem = await CartItemModel.findById(cartItem);
     const session = await mongoose.startSession();
     session.startTransaction();
-    data.cart.pull(product);
+    data.cart.pull(cartItem);
     await data.save({ session });
     await session.commitTransaction();
+    const deletecartItem = await CartItemModel.findByIdAndDelete(cartItem);
     res.status(200).send({
       response: true,
       message: "Item Removed",
@@ -58,10 +61,32 @@ exports.removeToCart = async (req, res) => {
 exports.getCartItem = async (req, res) => {
   try {
     const id = req.query.uId;
-    const data = await UserModel.findById(id).populate("cart");
+    const data = await UserModel.findById(id).populate({
+      path: "cart",
+      populate: { path: "product" },
+    });
     res.status(200).send({
       response: true,
       message: "Data Retrive",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};
+
+exports.updateSizeQuantity = async (req, res) => {
+  try {
+    const id = req.query.itemId;
+    const { size, quantity } = req.body;
+    const data = await CartItemModel.findByIdAndUpdate(id, { size, quantity });
+    res.status(200).send({
+      response: true,
+      message: "Updated",
       data,
     });
   } catch (error) {

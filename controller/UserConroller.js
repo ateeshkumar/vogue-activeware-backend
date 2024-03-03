@@ -107,7 +107,12 @@ exports.findAllUser = async (req, res) => {
 exports.findSingleUser = async (req, res) => {
   try {
     const id = req.query.userId;
-    const data = await UserModel.findById(id);
+    const data = await UserModel.findById(id)
+      .populate({
+        path: "cart",
+        populate: "product",
+      })
+      .populate("address newOrder orderHistory cart wishlist");
     res.status(200).send({
       response: true,
       message: "User Get Successfull",
@@ -200,6 +205,24 @@ exports.removeUserAddress = async (req, res) => {
     res.status(200).send({
       response: true,
       message: "Data Removed Successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};
+
+exports.getAddressDetails = async (req, res) => {
+  try {
+    const id = req.query.aId;
+    const data = await AddressModel.findById(id);
+    res.status(200).send({
+      response: true,
+      message: "Data Retrive",
       data,
     });
   } catch (error) {
