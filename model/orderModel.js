@@ -13,6 +13,7 @@ const schema = mongoose.Schema(
     orderStatus: { type: String, default: "procecing" },
     itemDelieverd: { type: String, default: "pending" },
     transactionId: { type: String, default: "" },
+    deliveredTime: { type: Date, default: null },
   },
   { timestamps: true }
 );
