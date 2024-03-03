@@ -310,3 +310,24 @@ exports.testController = async (req, res) => {
     });
   }
 };
+
+exports.updatePhoneNo = async (req, res) => {
+  try {
+    const id = req.query.userId;
+    const { phone } = req.body;
+    const data = await UserModel.findByIdAndUpdate(id, {
+      $set: { phone: phone },
+    });
+    res.status(200).send({
+      response: true,
+      message: "Phone No Updated",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal server Error",
+      error,
+    });
+  }
+};
