@@ -79,6 +79,24 @@ exports.getCartItem = async (req, res) => {
   }
 };
 
+exports.getCartItemDetails = async (req, res) => {
+  try {
+    const id = req.query.itemId;
+    const data = await CartItemModel.findById(id).populate("user product");
+    res.status(200).send({
+      response: true,
+      message: "Data Retrive",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};
+
 exports.updateSizeQuantity = async (req, res) => {
   try {
     const id = req.query.itemId;
