@@ -24,4 +24,6 @@ router.get("/deliverd-item-list", order.allItemDeliverd);
 
 router.get("/procesing-item-list", order.procesingOrderedList);
 
+router.get("/pending-item-list", order.allPendingOrderedList);
+
 module.exports = router;

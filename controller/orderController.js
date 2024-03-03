@@ -243,6 +243,25 @@ exports.procesingOrderedList = async (req, res) => {
   }
 };
 
+exports.allPendingOrderedList = async (req, res) => {
+  try {
+    const data = await OrderModel.find({
+      itemDelieverd: "pending",
+    });
+    res.status(200).send({
+      response: true,
+      message: "Retrive Successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};
+
 exports.allItemDeliverd = async (req, res) => {
   try {
     const data = await OrderModel.find({

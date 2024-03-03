@@ -18,7 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-// app.use(express.static(__dirname + "./uploads"));
+app.use(express.static(__dirname + "./uploads"));
 app.get("/", (req, res) => {
   res.status(200).send("<h1>Vogue Activewere</h1>");
 });
