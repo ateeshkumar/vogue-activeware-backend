@@ -189,7 +189,9 @@ exports.itemDeliverdByToday = async (req, res) => {
     var today = new Date();
     const data = await OrderModel.find({
       deliveredTime: { $lte: today },
-    });
+    })
+      .populate("user address")
+      .populate({ path: "cartItem", populate: { path: "product" } });
     res.status(200).send({
       response: true,
       message: "Retrive Successfully",
@@ -209,7 +211,9 @@ exports.itemOrderedByToday = async (req, res) => {
     var today = new Date();
     const data = await OrderModel.find({
       date: { $lte: today },
-    });
+    })
+      .populate("user address")
+      .populate({ path: "cartItem", populate: { path: "product" } });
     res.status(200).send({
       response: true,
       message: "Retrive Successfully",
@@ -228,7 +232,9 @@ exports.procesingOrderedList = async (req, res) => {
   try {
     const data = await OrderModel.find({
       orderStatus: "procecing",
-    });
+    })
+      .populate("user address")
+      .populate({ path: "cartItem", populate: { path: "product" } });
     res.status(200).send({
       response: true,
       message: "Retrive Successfully",
@@ -247,7 +253,9 @@ exports.allPendingOrderedList = async (req, res) => {
   try {
     const data = await OrderModel.find({
       itemDelieverd: "pending",
-    });
+    })
+      .populate("user address")
+      .populate({ path: "cartItem", populate: { path: "product" } });
     res.status(200).send({
       response: true,
       message: "Retrive Successfully",
@@ -266,7 +274,9 @@ exports.allItemDeliverd = async (req, res) => {
   try {
     const data = await OrderModel.find({
       itemDelieverd: "delivered",
-    });
+    })
+      .populate("user address")
+      .populate({ path: "cartItem", populate: { path: "product" } });
     res.status(200).send({
       response: true,
       message: "Retrive Successfully",
