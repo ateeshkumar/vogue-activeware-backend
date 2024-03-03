@@ -17,13 +17,13 @@ exports.userRegisterController = async (req, res) => {
         message: "All fields Required",
       });
     }
-    const isExist = await UserModel.findOne(email);
-    if (isExist.email == email) {
-      res.status(200).send({
-        response: false,
-        message: "User Already Exist",
-      });
-    }
+    // const isExist = await UserModel.findOne({email});
+    // if (isExist.email == email) {
+    //   res.status(200).send({
+    //     response: false,
+    //     message: "User Already Exist",
+    //   });
+    // }
     const hashpassword = await hashPassword(password);
     const data = new UserModel({
       name,
