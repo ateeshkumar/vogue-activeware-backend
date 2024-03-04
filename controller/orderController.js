@@ -290,3 +290,23 @@ exports.allItemDeliverd = async (req, res) => {
     });
   }
 };
+
+exports.orderDetailsControllers = async (req, res) => {
+  try {
+    const id = req.query.orderId;
+    const data = await OrderModel.findById(id)
+      .populate("user address")
+      .populate({ path: "cartItem", populate: { path: "product" } });
+    res.status(200).send({
+      response: true,
+      message: "Retrive Successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};

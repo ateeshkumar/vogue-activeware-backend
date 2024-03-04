@@ -26,4 +26,6 @@ router.get("/procesing-item-list", order.procesingOrderedList);
 
 router.get("/pending-item-list", order.allPendingOrderedList);
 
+router.get("/order-details", order.orderDetailsControllers);
+
 module.exports = router;
