@@ -186,9 +186,13 @@ exports.cancelOrderd = async (req, res) => {
 
 exports.itemDeliverdByToday = async (req, res) => {
   try {
-    var today = new Date();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const data = await OrderModel.find({
-      deliveredTime: { $lte: today },
+      deliveredTime: {
+        $gte: today,
+        $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000),
+      },
     })
       .populate("user address")
       .populate({ path: "cartItem", populate: { path: "product" } });
@@ -208,9 +212,13 @@ exports.itemDeliverdByToday = async (req, res) => {
 
 exports.itemOrderedByToday = async (req, res) => {
   try {
-    var today = new Date();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
     const data = await OrderModel.find({
-      date: { $lte: today },
+      date: {
+        $gte: today,
+        $lt: new Date(today.getTime() + 24 * 60 * 60 * 1000),
+      },
     })
       .populate("user address")
       .populate({ path: "cartItem", populate: { path: "product" } });
@@ -300,6 +308,25 @@ exports.orderDetailsControllers = async (req, res) => {
     res.status(200).send({
       response: true,
       message: "Retrive Successfully",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+};
+
+exports.allOrderWhichIsNotDeleverdAndNotCancel = async (req, res) => {
+  try {
+    const data = await OrderModel.find({
+      itemDelieverd: "pending",
+    });
+    res.status(200).send({
+      response: true,
+      message: "Data Retrive",
       data,
     });
   } catch (error) {

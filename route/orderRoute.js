@@ -28,4 +28,8 @@ router.get("/pending-item-list", order.allPendingOrderedList);
 
 router.get("/order-details", order.orderDetailsControllers);
 
+router.get(
+  "/order-status-mentain",
+  order.allOrderWhichIsNotDeleverdAndNotCancel
+);
 module.exports = router;
