@@ -331,3 +331,29 @@ exports.updatePhoneNo = async (req, res) => {
     });
   }
 };
+
+exports.getNewUserOrder = async (req, res) => {
+  try {
+    const userId = req.query.userId;
+    const data = await UserModel.findById(userId)
+      .populate({
+        path: "newOrder",
+        populate: { path: "address" },
+      })
+      .populate({
+        path: "newOrder",
+        populate: { path: "cartItem", populate: "product" },
+      });
+    res.status(200).send({
+      response: "success",
+      message: "Data Retrive",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal server Error",
+      error,
+    });
+  }
+};
