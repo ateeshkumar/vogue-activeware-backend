@@ -48,3 +48,26 @@ exports.applyCouponCode = async (req, res) => {
     });
   }
 };
+
+exports.updateStatusCouponCode = async (req, res) => {
+  try {
+    const id = req.query.couponId;
+    const { status } = req.body;
+    const data = await CouponModel.findByIdAndUpdate(
+      id,
+      { $set: { status: status } },
+      { new: true }
+    );
+    res.status(200).send({
+      response: true,
+      message: "Updated",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server error",
+      error,
+    });
+  }
+};
