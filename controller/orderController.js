@@ -303,7 +303,7 @@ exports.orderDetailsControllers = async (req, res) => {
   try {
     const id = req.query.orderId;
     const data = await OrderModel.findById(id)
-      .populate("user address")
+      .populate("user address discount")
       .populate({ path: "cartItem", populate: { path: "product" } });
     res.status(200).send({
       response: true,

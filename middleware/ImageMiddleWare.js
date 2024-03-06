@@ -6,6 +6,12 @@ const productStorage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
+const reviewsStorage = multer.diskStorage({
+  destination: "./uploads/review",
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
 const userStorage = multer.diskStorage({
   destination: "./uploads/user",
   filename: function (req, file, cb) {
@@ -15,3 +21,4 @@ const userStorage = multer.diskStorage({
 
 exports.productRoute = multer({ storage: productStorage });
 exports.userRoute = multer({ storage: userStorage });
+exports.reviewRoute = multer({ storage: reviewsStorage });

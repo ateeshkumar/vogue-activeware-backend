@@ -29,7 +29,7 @@ const schema = mongoose.Schema({
   },
   rating: {
     type: String,
-    default: "0",
+    default: "5",
   },
   reviews: [{ type: mongoose.Types.ObjectId, ref: "reviews" }],
 });

@@ -9,6 +9,8 @@ const cartRoute = require("./route/cartRoute");
 const wishlistRoute = require("./route/wishlistRoute");
 const orderRoute = require("./route/orderRoute");
 const pincodeRoute = require("./route/pincodeRoute");
+const couponRoute = require("./route/couponRoute");
+const reviewRoute = require("./route/reviewRoute");
 const fs = require("fs");
 const path = require("path");
 
@@ -29,6 +31,8 @@ app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);
 app.use("/order", orderRoute);
 app.use("/pincode", pincodeRoute);
+app.use("/coupon", couponRoute);
+app.use("/review", reviewRoute);
 
 app.listen(process.env.PORT, () => {
   console.log("server running on port 8080");

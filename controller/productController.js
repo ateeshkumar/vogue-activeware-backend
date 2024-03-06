@@ -60,7 +60,7 @@ exports.getAllProduct = async (req, res) => {
 exports.getSingleProduct = async (req, res) => {
   try {
     const pid = req.query.proId;
-    const data = await ProductModel.findById(pid);
+    const data = await ProductModel.findById(pid).populate("reviews");
     res.status(200).send({
       response: true,
       message: "Product retrive",
