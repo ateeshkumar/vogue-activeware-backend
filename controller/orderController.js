@@ -5,8 +5,15 @@ const PincodeModel = require("../model/pinCodeModel");
 
 exports.createOrderController = async (req, res) => {
   try {
-    const { user, price, paymentMode, paymentStatus, address, transactionId } =
-      req.body;
+    const {
+      user,
+      price,
+      paymentMode,
+      paymentStatus,
+      address,
+      transactionId,
+      discount,
+    } = req.body;
     const data = new OrderModel({
       user,
       price,
@@ -14,6 +21,7 @@ exports.createOrderController = async (req, res) => {
       paymentStatus,
       address,
       transactionId,
+      discount,
     });
     const userData = await UserModel.findById(user);
     const session = await mongoose.startSession();
