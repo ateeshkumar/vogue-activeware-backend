@@ -7,4 +7,5 @@ router.get("/apply", coupon.applyCouponCode);
 
 router.put("/update", coupon.updateStatusCouponCode);
 
+router.get("/coupon-code", coupon.couponCodeList);
 module.exports = router;

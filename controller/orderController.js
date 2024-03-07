@@ -172,10 +172,12 @@ exports.orderItemDeliverd = async (req, res) => {
 exports.cancelOrderd = async (req, res) => {
   try {
     const id = req.query.orderId;
+    const { resion } = req.body;
     const data = await OrderModel.findByIdAndUpdate(id, {
       $set: {
         orderStatus: "cancelled",
         itemDelieverd: "cancelled",
+        resion: resion,
       },
     });
     res.status(200).send({
@@ -311,7 +313,7 @@ exports.orderDetailsControllers = async (req, res) => {
   try {
     const id = req.query.orderId;
     const data = await OrderModel.findById(id)
-      .populate("user address discount")
+      .populate("user address")
       .populate({ path: "cartItem", populate: { path: "product" } });
     res.status(200).send({
       response: true,

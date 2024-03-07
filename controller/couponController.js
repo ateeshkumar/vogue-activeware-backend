@@ -49,6 +49,23 @@ exports.applyCouponCode = async (req, res) => {
   }
 };
 
+exports.couponCodeList = async (req, res) => {
+  try {
+    const data = await CouponModel.find({});
+    res.status(200).send({
+      response: true,
+      message: "Data Retirve",
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      response: false,
+      message: "Internal Server error",
+      error,
+    });
+  }
+};
+
 exports.updateStatusCouponCode = async (req, res) => {
   try {
     const id = req.query.couponId;

@@ -16,7 +16,7 @@ const schema = mongoose.Schema(
     deliveredTime: { type: Date, default: null },
     review: { type: String, default: "" },
     resion: { type: String, default: "" },
-    discount: { type: mongoose.Types.ObjectId, ref: "coupon" },
+    discount: { type: String, default: "" },
   },
   { timestamps: true }
 );
